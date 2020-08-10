@@ -1,14 +1,23 @@
 
-@extends('layouts.app')
+<x-app>
 
-@section('content')
     <header class="mb-6 relative">
+        <div class="relative">
  <img
      src="/images/cover.jpg"
      alt=""
      class="mb-2"
      >
-        <div class="flex justify-between items-center mb-4">
+        <img
+            src="{{$user->avatar}}"
+            alt=""
+            class="rounded-full mr-2 absolute bottom-0 transform -translate-x-1/2 translate-y-1/2"
+            style="left: 50%"
+            width="150"
+        >
+        </div>
+
+        <div class="flex justify-between items-center mb-6">
 
             <div>
 
@@ -16,11 +25,13 @@
                 <p class="text-sm">joined{{$user->created_at->diffforHumans()}}</p>
             </div>
 
-            <div>
+            <div class="flex">
+                @can('edit',$name ?? '')
 
-                <a href="" class="rounded-full shadow py-2 px-4 text-black text-xs">Edit Profile</a>
-                <a href="" class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-xs">Follow me</a>
+                <a href="{{$user->path('edit ')}}" class="rounded-full shadow py-2 px-4 text-black text-xs">Edit Profile</a>
+                @endcan
 
+          <x-follow-button :user="$user"></x-follow-button>
             </div>
         </div>
         <p class="text-sm">
@@ -29,12 +40,6 @@
         </p>
 
 
-        <img
-            src="{{$user->avatar}}"
-            alt=""
-            class="rounded-full mr-2 absolute"
-            style="width: 150px;left: calc(50% - 75px);top: 260px"
-            >
 
 
 
@@ -45,6 +50,5 @@
 ])
 
 
-
-@endsection
+</x-app>
 

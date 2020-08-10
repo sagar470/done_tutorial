@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,4 +23,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/profiles/{user}', 'ProfilesController@show')->name('profile');
+Route::Post('/profiles/{user:Username}/follow', 'FollowsController@store');
+Route::get('/profiles/{user:Username}/edit', 'ProfilesController@edit');
+
+Route::get('/profiles/{user:Username}', 'ProfilesController@show')->name('profile');
